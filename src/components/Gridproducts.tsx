@@ -74,9 +74,9 @@ const Gridproducts = () => {
       </h1>
 
       <div className="px-5 mt-9 w-full max-md:max-w-full">
-        <div className="flex gap-5 max-md:flex-col">
+        <div className="grid grid-cols-4 gap-5 max-md:grid-cols-1">
           {products.map((product, index) => (
-            <div className="flex flex-col w-3/12 max-md:w-full key={index}">
+            <div className="flex flex-col key={index}">
               <ProductCard
                 imageSrc={product.imageSrc}
                 productName={product.productName}
