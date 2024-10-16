@@ -1,9 +1,14 @@
 import CardInfo from '@/components/cart_page/CardInfo'
 import Container from '@/components/cart_page/Container'
 import TitlePage from '@/components/cart_page/TitlePage'
-import React from 'react'
+import { useRouter } from 'next/router';
+import ProductInfo from '../components/cart_page/ProductInfo';
+
 
 function cartPage() {
+  const router = useRouter();
+  const { productName, productPrice, imageSrc, quantity } = router.query;
+
   return (
     <div className="flex overflow-hidden flex-col">
       

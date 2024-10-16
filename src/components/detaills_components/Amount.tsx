@@ -37,15 +37,21 @@ const Amount: React.FC<AmountProps> = ({ productName, productPrice, imageSrc }) 
   }
 
   const handleAddToCart = () => {
-    const totalPrice = calculateTotalPrice()
-    setProductName(productName)
-    router.push(`/cart-page?productName=${encodeURIComponent(productName)}&productPrice=${encodeURIComponent(totalPrice)}&imageSrc=${encodeURIComponent(imageSrc)}`);
+    const totalPrice = calculateTotalPrice();
+    router.push(`/cart-page?productName=${encodeURIComponent(productName)}&productPrice=${encodeURIComponent(totalPrice)}&quantity=${encodeURIComponent(quantity)}&imageSrc=${encodeURIComponent(imageSrc)}`);
   };
 
   return (
     <div className='mt-5 flex flex-row gap-3'>
       <form action="">
-        <input type="number" className='border border-gray-400 p-3 w-14 text-center rounded-sm focus:outline-none' value={quantity} onChange={handleQuantityChange} min={1}/>
+        <input 
+          type="number" 
+          className='border border-gray-400 p-3 w-14 text-center rounded-sm focus:outline-none' 
+          value={quantity} 
+          onChange={handleQuantityChange} 
+          min={1}
+          max={3}
+        />
       </form>
 
       <button
