@@ -1,13 +1,14 @@
 import { useProduct } from "../../context/ProductContext"; 
-import carrinho from "../../assets/cart.svg";
-import heart from "../../assets/heart.svg";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import carrinho from "../../assets/cart.svg";
+import heart from "../../assets/heart.svg";
+
 
 interface AmountProps {
   productName: string;
   productPrice: number;
-  imageSrc: string
+  imageSrc: string;
 }
 
 const Amount: React.FC<AmountProps> = ({ productName, productPrice, imageSrc }) => {
@@ -17,7 +18,7 @@ const Amount: React.FC<AmountProps> = ({ productName, productPrice, imageSrc }) 
   useEffect(() => {
     setProductPrice(productPrice)
     setProductName(productName)
-  }, [productPrice, productName, setProductName])
+  }, [productPrice, productName, setProductName, setProductPrice])
 
   const calculateTotalPrice = () => {
     return (productPrice* quantity).toFixed(2)
@@ -25,8 +26,14 @@ const Amount: React.FC<AmountProps> = ({ productName, productPrice, imageSrc }) 
 
   const handleQuantityChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = Number(event.target.value)
-    setQuantity(Number(event.target.value))
-    setProductPrice(productPrice)
+
+    if (newQuantity > 3) {
+      setQuantity(3);
+    } else if (newQuantity < 1) {
+      setQuantity(1)
+    } else {
+      setQuantity(newQuantity)
+    }
   }
 
   const handleAddToCart = () => {
