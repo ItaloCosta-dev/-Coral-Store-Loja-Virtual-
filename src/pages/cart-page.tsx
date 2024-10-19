@@ -1,13 +1,12 @@
 import CardInfo from '@/components/cart_page/CardInfo'
 import Container from '@/components/cart_page/Container'
 import TitlePage from '@/components/cart_page/TitlePage'
-import { useRouter } from 'next/router';
 import ProductInfo from '../components/cart_page/ProductInfo';
+import { useProduct } from '@/context/ProductContext';
 
 
 function cartPage() {
-  const router = useRouter();
-  const { productName, productPrice, imageSrc, quantity } = router.query;
+  const { productName, productPrice, imageSrc, quantity } = useProduct()
 
   return (
     <div className="flex overflow-hidden flex-col">
@@ -18,6 +17,12 @@ function cartPage() {
           <CardInfo />
         </div>      
         <Container />
+        <ProductInfo 
+          productName={productName}
+          productPrice={productPrice}
+          imageSrc={imageSrc}
+          quantity={quantity}
+        />
       </div>
     </div>
   )

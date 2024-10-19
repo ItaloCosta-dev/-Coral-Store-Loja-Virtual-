@@ -29,7 +29,8 @@ interface ProductContextProps {
   productName: string;
   productPrice: number;
   quantity: number;
-  shippingPrice: number;  // Propriedade adicionada aqui
+  shippingPrice: number; 
+  imageSrc: string
   setProductName: (name: string) => void;
   setProductPrice: (price: number) => void;
   setQuantity: (quantity: number) => void;
@@ -52,7 +53,8 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
   const [productName, setProductName] = useState<string>("");
   const [productPrice, setProductPrice] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(1);
-  const [shippingPrice, setShippingPrice] = useState<number>(0);  // Estado para o frete
+  const [shippingPrice, setShippingPrice] = useState<number>(0); 
+  const [imageSrc, setImageSrc] = useState<string>("")
 
   const [products, setProducts] = useState<Product[]>([
     { imageSrc: Img01.src, productName: "Jaqueta masculina", productCategory: "Masculino", productPrice: 179.9 },
@@ -80,13 +82,14 @@ export const ProductProvider: React.FC<{ children: ReactNode }> = ({ children })
         productName,
         productPrice,
         quantity,
-        shippingPrice,  // Incluindo shippingPrice no valor passado
+        shippingPrice, 
         setProductName,
         setProductPrice,
         setQuantity,
         setShippingPrice,
         products,
         setProducts,
+        imageSrc
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useRouter } from 'next/router'
 import Price from './Price'
 import Color from './Color'
 import Size from './Size'
@@ -7,7 +7,7 @@ import Delivery from './Delivery'
 import Return from './Return'
 import Share from './Share'
 import Payments from './Payments'
-import { useRouter } from 'next/router'
+
 
 
 const ProductDetails = () => {
@@ -23,7 +23,7 @@ const ProductDetails = () => {
           <Price />
           <Color />
           <Size />
-          <Amount productName={productName as string} productPrice={productPrice as string} imageSrc={imageSrc as string}/>
+          <Amount productName={productName as string} productPrice={Number(productPrice)} imageSrc={imageSrc as string}/>
           <Delivery />
           <Return />
           <Share />
