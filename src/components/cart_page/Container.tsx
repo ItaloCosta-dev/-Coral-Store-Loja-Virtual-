@@ -14,7 +14,7 @@ const Container = () => {
         productName={productName as string}
         productPrice={productPrice as string}
         imageSrc={imageSrc as string}
-        quantity={Number(quantity)}  // Quantidade renderizada
+        quantity={Number(quantity)}  
       />
       <PaymentDetails />
       <BuyButton />

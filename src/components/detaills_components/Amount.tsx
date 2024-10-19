@@ -1,9 +1,8 @@
-import { useProduct } from "../../context/ProductContext"; 
+import { useProduct } from "../../context/ProductContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import carrinho from "../../assets/cart.svg";
 import heart from "../../assets/heart.svg";
-
 
 interface AmountProps {
   productName: string;
@@ -13,56 +12,60 @@ interface AmountProps {
 
 const Amount: React.FC<AmountProps> = ({ productName, productPrice, imageSrc }) => {
   const router = useRouter();
-  const { quantity, setQuantity, setProductName, setProductPrice } = useProduct()
+  const { quantity, setQuantity, setProductName, setProductPrice, shippingPrice } = useProduct();  // shippingPrice agora é reconhecido
 
   useEffect(() => {
-    setProductPrice(productPrice)
-    setProductName(productName)
-  }, [productPrice, productName, setProductName, setProductPrice])
+    setProductPrice(productPrice);
+    setProductName(productName);
+  }, [productPrice, productName, setProductName, setProductPrice]);
 
   const calculateTotalPrice = () => {
-    return (productPrice* quantity).toFixed(2)
-  }
+    return (productPrice * quantity).toFixed(2);
+  };
 
-  const handleQuantityChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = Number(event.target.value)
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuantity = Number(event.target.value);
 
     if (newQuantity > 3) {
       setQuantity(3);
     } else if (newQuantity < 1) {
-      setQuantity(1)
+      setQuantity(1);
     } else {
-      setQuantity(newQuantity)
+      setQuantity(newQuantity);
     }
-  }
+  };
 
   const handleAddToCart = () => {
-    const totalPrice = calculateTotalPrice();
-    router.push(`/cart-page?productName=${encodeURIComponent(productName)}&productPrice=${encodeURIComponent(totalPrice)}&quantity=${encodeURIComponent(quantity)}&imageSrc=${encodeURIComponent(imageSrc)}`);
+    if (shippingPrice === 0) {  // Verifica se o frete foi escolhido
+      alert("Escolha uma opção de frete.");
+    } else {
+      const totalPrice = calculateTotalPrice();
+      setProductName(productName);
+      router.push(`/cart-page?productName=${encodeURIComponent(productName)}&productPrice=${encodeURIComponent(totalPrice)}&imageSrc=${encodeURIComponent(imageSrc)}`);
+    }
   };
 
   return (
-    <div className='mt-5 flex flex-row gap-3'>
+    <div className="mt-5 flex flex-row gap-3">
       <form action="">
-        <input 
-          type="number" 
-          className='border border-gray-400 p-3 w-14 text-center rounded-sm focus:outline-none' 
-          value={quantity} 
-          onChange={handleQuantityChange} 
+        <input
+          type="number"
+          className="border border-gray-400 p-3 w-14 text-center rounded-sm focus:outline-none"
+          value={quantity}
+          onChange={handleQuantityChange}
           min={1}
-          max={3}
         />
       </form>
 
       <button
-        className='p-3 bg-green-900 text-white font-semibold rounded-sm flex justify-center items-center gap-2'
+        className="p-3 bg-green-900 text-white font-semibold rounded-sm flex justify-center items-center gap-2"
         onClick={handleAddToCart}
       >
         <img src={carrinho.src} alt="" />
         Adicionar ao carrinho
       </button>
 
-      <button className='p-3 bg-transparent text-green-900 font-semibold rounded-sm flex justify-center items-center gap-2 border border-green-900'>
+      <button className="p-3 bg-transparent text-green-900 font-semibold rounded-sm flex justify-center items-center gap-2 border border-green-900">
         <img src={heart.src} alt="" />
         Favoritar
       </button>
